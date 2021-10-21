@@ -15,6 +15,25 @@ class Acciones:
         else:
             print(f'No ha podido guardar la nota, lo siento {usuario[1]}')
     def mostrar(self, usuario):
-        return True
+        print(f'Okay, {usuario[1]} aqui tienes todas tus notas: ')
+
+        nota = modelo.Nota(usuario[0])
+        notas = nota.listar()
+
+        for nota in notas:
+            print("*****************")
+            print(nota[2])
+            print(nota[3])
+            print("*****************")
     def eliminar(self, usuario):
-        return True
+        print(f'Okay, {usuario[1]} vamos a borrar una nota!')
+
+        titulo = input("Ingrese el titulo de la nota a borrar: ")
+        
+        nota = modelo.Nota(usuario[0], titulo)
+        eliminar = nota.eliminar()
+
+        if eliminar[0] >= 1:
+            print(f'Hemos borrado la nota {nota.getTitulo()}')
+        else:
+            print('Ha ocurrido un error, no se ha podido borrar la nota. Intentalo de nuevo!')

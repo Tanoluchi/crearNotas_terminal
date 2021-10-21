@@ -6,7 +6,7 @@ cursor = connect[1]
 
 class Nota:
 
-    def __init__(self, usuario_id, titulo, descripcion):
+    def __init__(self, usuario_id, titulo = "", descripcion = ""):
         self.__setUsuarioID(usuario_id)
         self.__setTitulo(titulo)
         self.__setDescripcion(descripcion)
@@ -36,3 +36,24 @@ class Nota:
 
         return [cursor.rowcount, self]
     
+    def listar(self):
+        # Escribimos la consulta, seleccionamos todas las notas que son del usuario que
+        # esta ingresando al programa, lo identificamos por su id
+        sql = f"SELECT * FROM notas WHERE usuario_id = {self.getUsuarioID()}"
+
+        # Ejecutamos la consulta
+        cursor.execute(sql)
+        result = cursor.fetchall()
+
+        return result
+
+    def eliminar(self):
+        # Realizamos la consulta, seleccionamos las notas del usuario que ingreso al programa
+        # luego hacemos la verificacion de que eliminara la nota que sea igual al titulo
+        # pasado por parametro que esta contenido dentro de nuestra variable titulo.
+        sql = f"DELETE FROM notas WHERE usuario_id = {self.getUsuarioID()} AND titulo LIKE '%{self.getTitulo()}%'"
+
+        cursor.execute(sql)
+        database.commit()
+
+        return [cursor.rowcount, self]

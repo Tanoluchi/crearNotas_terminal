@@ -1,5 +1,6 @@
-from _typeshed import NoneType
 from usuarios import usuario as modelo
+import notas.acciones as nota
+
 class Acciones:
 
     def registro(self):
@@ -31,8 +32,8 @@ class Acciones:
                 print(f'Bienvenido {login[1]}, te has logeado correctamente en la fecha {login[5]}')
                 self.proximasAcciones(login)
         except Exception as e:
-            # print(type(e))
-            # print(type.e.__name__)
+            print(type(e))
+            print(type(e).__name__)
             print(f"Login incorrecto, intentalo de nuevo.")
 
     def proximasAcciones(self, usuario):
@@ -45,15 +46,16 @@ class Acciones:
         """)
 
         accion = input('\n¿Que quieres hacer?: ')
+        hazEl = nota.Acciones()
 
         if accion == "crear":
-            print("\nOkay, vamos a crear una nota.")
+            hazEl.crear(usuario)
             self.proximasAcciones(usuario)
         elif accion == "mostrar":
-            print("\nLista de notas: ")
+            hazEl.mostrar(usuario)
             self.proximasAcciones(usuario)
         elif accion == "eliminar":
-            print("\nVamos a eliminar una nota")
+            hazEl.eliminar(usuario)
             self.proximasAcciones(usuario)
         elif accion == "salir":
             print(f"Hasta luego {usuario[1]}")
